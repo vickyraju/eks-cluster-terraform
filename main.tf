@@ -7,7 +7,7 @@ provider "aws" {
 module "vpc" {
   source  = "./modules/vpc"
   # source = "terraform-aws-modules/vpc/aws"
-  version = "5.0.0"  # Specify the desired version from the Terraform Registry
+  # version = "5.0.0"  # Specify the desired version from the Terraform Registry
   name    = "eks-vpc"
   cidr    = "10.0.0.0/16"
   azs     = ["ap-south-1a", "ap-south-1b"]
@@ -21,7 +21,7 @@ module "vpc" {
 module "eks_cluster" {
   source            = "./modules/eks_cluster"
   # source            = "terraform-aws-modules/eks/aws"
-  version           = "18.1.0"
+  # version           = "18.1.0"
   cluster_name      = "my-eks-cluster"
   cluster_version   = "1.25"
   vpc_id            = module.vpc.vpc_id
