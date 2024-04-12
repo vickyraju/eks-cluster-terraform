@@ -6,6 +6,7 @@ provider "aws" {
 # Module for creating the VPC
 module "vpc" {
   source  = "./modules/vpc"
+  version = "5.0.0"
   name    = "eks-vpc"
   cidr    = "10.0.0.0/16"
   azs     = ["ap-south-1a", "ap-south-1b"]
