@@ -3,7 +3,7 @@ name: Deploy EKS Cluster and Applications
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - master  # Trigger on push to main branch
 
 jobs:
   deploy:
