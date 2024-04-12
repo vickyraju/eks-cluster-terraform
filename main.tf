@@ -5,7 +5,7 @@ provider "aws" {
 
 # Module for creating the VPC
 module "vpc" {
-  source  = "modules/vpc"
+  source  = "../modules/vpc"
   name    = "eks-vpc"
   cidr    = "10.0.0.0/16"
   azs     = ["ap-south-1a", "ap-south-1b"]
@@ -17,7 +17,7 @@ module "vpc" {
 
 # Module for creating the EKS cluster
 module "eks_cluster" {
-  source            = "modules/eks_cluster"
+  source            = "../modules/eks_cluster"
   cluster_name      = "my-eks-cluster"
   cluster_version   = "1.25"
   vpc_id            = module.vpc.vpc_id
@@ -34,10 +34,4 @@ module "eks_cluster" {
   tags = {
     Environment = "Development"
   }
-}
-
-# Module for creating the KMS key (example)
-module "kms" {
-  source = "/modules/kms"
-  # Add KMS module configuration here if applicable
 }
