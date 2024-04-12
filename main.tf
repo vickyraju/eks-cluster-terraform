@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 module "eks_cluster" {
-  source = "terraform-aws-modules/eks/aws"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "20.8.5"  # Use a valid version of the EKS module
 
   cluster_name    = "my-eks-cluster"
   cluster_version = "1.25"
@@ -24,7 +25,8 @@ module "eks_cluster" {
 }
 
 module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.7.1"  # Use a valid version of the VPC module
 
   name = "eks-vpc"
   cidr = "10.0.0.0/16"
