@@ -3,9 +3,7 @@ provider "aws" {
 }
 
 module "eks_cluster" {
-  source  = "github.com/terraform-aws-modules/terraform-aws-eks"
-  # Use a specific tag or branch for the eks_cluster module
-  ref     = "master"  # Replace "master" with the appropriate branch or tag
+  source  = "./modules/eks_cluster"  # Local path to the eks_cluster module directory
 
   cluster_name    = "my-eks-cluster"
   cluster_version = "1.25"
@@ -26,8 +24,7 @@ module "eks_cluster" {
 }
 
 module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "5.7.1"
+  source  = "./modules/vpc"  # Local path to the vpc module directory
 
   name = "eks-vpc"
   cidr = "10.0.0.0/16"
@@ -38,4 +35,11 @@ module "vpc" {
 
   enable_dns_support   = true
   enable_dns_hostnames = true
+}
+
+module "kms" {
+  source = "./modules/kms"  # Local path to the kms module directory
+
+  # Specify module configuration here
+  # (e.g., key_name, description, enable_key_rotation, etc.)
 }
