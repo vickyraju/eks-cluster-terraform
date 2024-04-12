@@ -18,10 +18,10 @@ module "vpc" {
 }
 
 # Module for creating the EKS cluster
-module "eks_cluster" {
+module "eks" {
   source            = "./modules/eks_cluster"
   # source            = "terraform-aws-modules/eks/aws"
-  # version           = "18.1.0"
+  # version           = "20.8.5"
   cluster_name      = "my-eks-cluster"
   cluster_version   = "1.25"
   vpc_id            = module.vpc.vpc_id
