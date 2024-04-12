@@ -14,6 +14,8 @@ spec:
     spec:
       containers:
         - name: node-app1
-          image: docker-image-app1
+          image: node:14  # Example: Use Node.js image directly
+          command: ["node"]
+          args: ["app.js"]  # Command to run the application
           ports:
             - containerPort: 3000

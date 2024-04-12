@@ -32,7 +32,8 @@ jobs:
         with:
           kubeconfig: ${{ secrets.KUBECONFIG_PATH }}  # Path to kubeconfig file
 
-      - name: Deploy Applications to EKS
-        run: |
-          kubectl apply -f applications/app1/deployment.yaml
-          kubectl apply -f applications/app2/deployment.yaml
+      - name: Deploy App 1 to EKS
+        run: kubectl apply -f kubernetes/app1-deployment.yaml
+
+      - name: Deploy App 2 to EKS
+        run: kubectl apply -f kubernetes/app2-deployment.yaml
