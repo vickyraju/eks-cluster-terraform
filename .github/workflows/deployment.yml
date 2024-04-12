@@ -3,7 +3,7 @@ name: Deploy EKS Cluster and Applications
 on:
   push:
     branches:
-      - master # Trigger on push to master branch
+      - main  # Trigger on push to main branch
 
 jobs:
   deploy:
@@ -18,6 +18,9 @@ jobs:
         with:
           terraform_version: 1.1.0  # Specify your Terraform version
 
+      - name: Navigate to Terraform directory
+        run: cd terraform/
+
       - name: Terraform Init
         run: terraform init
 
@@ -26,11 +29,6 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
-
-      - name: Configure kubectl
-        run: |
-          aws eks --region ap-south-1 update-kubeconfig --name my-eks-cluster
-          kubectl get nodes
 
       - name: Deploy App 1 to EKS
         run: kubectl apply -f applications/app1/deployment.yaml
