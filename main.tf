@@ -26,9 +26,8 @@ module "eks_cluster" {
 }
 
 module "vpc" {
-  source  = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # Use a specific tag or branch for the vpc module
-  ref     = "master"  # Replace "master" with the appropriate branch or tag
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.7.1"
 
   name = "eks-vpc"
   cidr = "10.0.0.0/16"
@@ -39,13 +38,4 @@ module "vpc" {
 
   enable_dns_support   = true
   enable_dns_hostnames = true
-}
-
-module "kms" {
-  source = "github.com/terraform-aws-modules/terraform-aws-kms"
-  # Use a specific tag or branch for the kms module
-  ref    = "master"  # Replace "master" with the appropriate branch or tag
-
-  # Specify module configuration here
-  # (e.g., key_name, description, enable_key_rotation, etc.)
 }
