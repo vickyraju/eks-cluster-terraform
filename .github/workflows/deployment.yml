@@ -28,12 +28,12 @@ jobs:
         run: terraform apply -auto-approve tfplan
 
       - name: Configure kubectl
-        uses: azure/setup-kubectl@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG_PATH }}  # Path to kubeconfig file
+        run: |
+          aws eks --region ap-south-1 update-kubeconfig --name my-eks-cluster
+          kubectl get nodes
 
       - name: Deploy App 1 to EKS
-        run: kubectl apply -f kubernetes/app1-deployment.yaml
+        run: kubectl apply -f applications/app1/deployment.yaml
 
       - name: Deploy App 2 to EKS
-        run: kubectl apply -f kubernetes/app2-deployment.yaml
+        run: kubectl apply -f applications/app2/deployment.yaml
