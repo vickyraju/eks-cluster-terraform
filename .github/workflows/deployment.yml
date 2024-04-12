@@ -1,0 +1,38 @@
+name: Deploy EKS Cluster and Applications
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.1.0  # Specify your Terraform version
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+
+      - name: Configure kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG_PATH }}  # Path to kubeconfig file
+
+      - name: Deploy Applications to EKS
+        run: |
+          kubectl apply -f applications/app1/deployment.yaml
+          kubectl apply -f applications/app2/deployment.yaml
